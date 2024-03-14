@@ -1,6 +1,5 @@
 package com.sherenterprise.coursereport.dto;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record MetaDataDto(
