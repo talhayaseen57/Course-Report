@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.Locale;
 
 public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendPattern("MMMM d, yyyy 'at' h:mma 'UTC'")
@@ -20,4 +21,5 @@ public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateT
         String date = jsonParser.getText();
         return LocalDateTime.parse(date, FORMATTER);
     }
+
 }
