@@ -1,14 +1,24 @@
 package com.sherenterprise.coursereport.service;
 
+import com.sherenterprise.coursereport.domain.MatchEntity;
+import com.sherenterprise.coursereport.dto.MatchDto;
 import com.sherenterprise.coursereport.dto.request.CourseReportApiResponseDto;
+import com.sherenterprise.coursereport.repository.MatchRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class CourseReportService {
+
+    private MatchRepository matchRepository;
+
+    public CourseReportService(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
 
     public void pollCourseReportApi () {
         System.out.println("Polling Course Report API: " + LocalDateTime.now());
@@ -16,7 +26,19 @@ public class CourseReportService {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<CourseReportApiResponseDto> apiResponse = restTemplate.getForEntity("http://localhost:8080/get-mock-api", CourseReportApiResponseDto.class);
 
-        System.out.println(apiResponse.getBody());
+        CourseReportApiResponseDto responseData = apiResponse.getBody();
+
+        if (responseData != null) {
+            for (MatchDto match : responseData.matches()) {
+                Optional<MatchEntity> matchOpt = matchRepository.findByEmail(match.email());
+
+                matchOpt.ifPresentOrElse(aMatch -> {
+                    System.out.println("The contact match is present.");
+                }, () -> {
+                    System.out.println("The contact match is not present.");
+                });
+            }
+        }
     }
 
 }
