@@ -30,12 +30,14 @@ public class CourseReportService {
 
         if (responseData != null) {
             for (MatchDto match : responseData.matches()) {
-                Optional<MatchEntity> matchOpt = matchRepository.findByEmail(match.email());
+                Optional<MatchEntity> aMatchOpt = matchRepository.findByEmail(match.email());
 
-                matchOpt.ifPresentOrElse(aMatch -> {
-                    System.out.println("The contact match is present.");
+                aMatchOpt.ifPresentOrElse(aMatch -> {
+                    System.out.println("The contact match is present: " + aMatch);
                 }, () -> {
                     System.out.println("The contact match is not present.");
+                    MatchEntity newMatch = new MatchEntity(match.email(), match.phoneNumber(), match.fullName(), match.creationDate());
+                    matchRepository.save(newMatch);
                 });
             }
         }

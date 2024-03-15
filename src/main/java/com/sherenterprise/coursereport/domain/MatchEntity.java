@@ -18,6 +18,16 @@ public class MatchEntity {
     private String fullName;
     private LocalDateTime createdAt;
 
+    public MatchEntity() {
+    }
+
+    public MatchEntity(String email, String phoneNumber, String fullName, LocalDateTime createdAt) {
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.fullName = fullName;
+        this.createdAt = createdAt;
+    }
+
     public Long getId() {
         return id;
     }
