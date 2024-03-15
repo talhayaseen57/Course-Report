@@ -39,6 +39,7 @@ public class CourseReportService {
                     MatchEntity newMatch = new MatchEntity(match.email(), match.phoneNumber(), match.fullName(), match.creationDate());
                     matchRepository.save(newMatch);
                 });
+
             }
         }
     }
