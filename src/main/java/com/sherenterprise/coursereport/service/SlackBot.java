@@ -4,10 +4,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static com.sherenterprise.coursereport.service.SlackSecrets.CHANNEL_ID;
+import static com.sherenterprise.coursereport.service.SlackSecrets.SLACK_TOKEN;
+
 public class SlackBot {
 
-    private static final String TOKEN = "xoxb-6827094040193-6811539192533-TKdZIJGe7AAjpCiD7v8kwPmT";
-    private static final String CHANNEL_ID = "C06QB2UKQSV";
     private static final String SLACK_API_URL = "https://slack.com/api/chat.postMessage";
 
     public static void postMessage(String message) {
@@ -17,7 +18,7 @@ public class SlackBot {
 
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Authorization", "Bearer " + TOKEN);
+            connection.setRequestProperty("Authorization", "Bearer " + SLACK_TOKEN);
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             System.out.println("About to post this message to slack: " + message);
             String jsonPayload = "{\"channel\":\"" + CHANNEL_ID + "\",\"text\":\"" + message + "\"}";
