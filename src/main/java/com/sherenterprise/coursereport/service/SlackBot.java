@@ -6,8 +6,8 @@ import java.net.URL;
 
 public class SlackBot {
 
-    private static final String TOKEN = "xoxb-4459424149986-6799838706535-64GGpN82MwBtkp9rVD3vFJ2n";
-    private static final String CHANNEL_ID = "C06Q0Q5L1NY";
+    private static final String TOKEN = "xoxb-6827094040193-6811539192533-TKdZIJGe7AAjpCiD7v8kwPmT";
+    private static final String CHANNEL_ID = "C06QB2UKQSV";
     private static final String SLACK_API_URL = "https://slack.com/api/chat.postMessage";
 
     public static void postMessage(String message) {
@@ -29,9 +29,6 @@ public class SlackBot {
 
             int responseCode = connection.getResponseCode();
             System.out.println("Response Code: " + responseCode);
-
-            // Handle the connection response...
-
         } catch (Exception e) {
             e.printStackTrace();
         }
