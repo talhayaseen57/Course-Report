@@ -18,7 +18,7 @@ public record MatchDto(
         boolean online,
         @JsonProperty("created_at")
         @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
-        LocalDateTime creationDate,
+        LocalDateTime createdAt,
         String track
 ) {
 }

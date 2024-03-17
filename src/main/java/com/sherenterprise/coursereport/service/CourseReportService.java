@@ -29,14 +29,18 @@ public class CourseReportService {
         CourseReportApiResponseDto responseData = apiResponse.getBody();
 
         if (responseData != null) {
-            for (MatchDto match : responseData.matches()) {
-                Optional<MatchEntity> aMatchOpt = matchRepository.findByEmail(match.email());
+            for (MatchDto apiMatch : responseData.matches()) {
+                Optional<MatchEntity> dbMatchOpt = matchRepository.findByEmail(apiMatch.email());
 
-                aMatchOpt.ifPresentOrElse(aMatch -> {
-                    System.out.println("The contact match is present: " + aMatch);
+                dbMatchOpt.ifPresentOrElse(dbMatch -> {
+                    if (!dbMatch.getCreatedAt().equals(apiMatch.createdAt())) {
+                        System.out.println("We should send message at slack: " + dbMatch);
+                        dbMatch.setCreatedAt(apiMatch.createdAt());
+                        matchRepository.save(dbMatch);
+                    }
                 }, () -> {
                     System.out.println("The contact match is not present.");
-                    MatchEntity newMatch = new MatchEntity(match.email(), match.phoneNumber(), match.fullName(), match.creationDate());
+                    MatchEntity newMatch = new MatchEntity(apiMatch.email(), apiMatch.phoneNumber(), apiMatch.fullName(), apiMatch.createdAt());
                     matchRepository.save(newMatch);
                 });
 
