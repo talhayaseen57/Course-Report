@@ -32,4 +32,3 @@ build/
 ### VS Code ###
 .vscode/
 /.cache_ggshield
-/src/main/java/com/sherenterprise/coursereport/service/SlackSecrets.java
