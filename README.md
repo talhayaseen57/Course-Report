@@ -8,7 +8,7 @@ The application runs continuously in the background, periodically triggering an 
 
 ## Features
 
-- Integration with [Course Report API]{https://wiki.collaborator.biz/docs/api-checklist-report/}
+- Integration with [Course Report API](https://wiki.collaborator.biz/docs/api-checklist-report/)
 - Database management for user records
 - Slack notification for new or updated users
 
