@@ -13,7 +13,7 @@ public class CourseReportScheduler {
         this.courseReportService = courseReportService;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 10000)
     public void pollCourseReportApi() {
         courseReportService.pollCourseReportApi();
     }

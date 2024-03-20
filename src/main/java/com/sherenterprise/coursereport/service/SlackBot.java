@@ -3,6 +3,7 @@ package com.sherenterprise.coursereport.service;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import static com.sherenterprise.coursereport.service.SlackSecrets.CHANNEL_ID;
 import static com.sherenterprise.coursereport.service.SlackSecrets.SLACK_TOKEN;
@@ -24,7 +25,7 @@ public class SlackBot {
             String jsonPayload = "{\"channel\":\"" + CHANNEL_ID + "\",\"text\":\"" + message + "\"}";
 
             try (OutputStream outputStream = connection.getOutputStream()) {
-                byte[] input = jsonPayload.getBytes("utf-8");
+                byte[] input = jsonPayload.getBytes(StandardCharsets.UTF_8);
                 outputStream.write(input, 0, input.length);
             }
 

@@ -22,7 +22,7 @@ public class CourseReportService {
         this.matchRepository = matchRepository;
     }
 
-    public void pollCourseReportApi () {
+    public void pollCourseReportApi() {
         System.out.println("Polling Course Report API: " + LocalDateTime.now());
 
         RestTemplate restTemplate = new RestTemplate();
@@ -45,9 +45,9 @@ public class CourseReportService {
                 Optional<MatchEntity> dbMatchOpt = matchRepository.findByEmail(apiMatch.email());
 
                 String messageFormat = """
-                            Full Name: %s\s
-                            Email Address: %s\s
-                            Phone Number: %s""";
+                        Full Name: %s\s
+                        Email Address: %s\s
+                        Phone Number: %s""";
                 final String message = String.format(messageFormat, apiMatch.fullName(), apiMatch.email(), apiMatch.phoneNumber());
 
                 dbMatchOpt.ifPresentOrElse(dbMatch -> {
