@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -24,7 +26,17 @@ public class CourseReportService {
         System.out.println("Polling Course Report API: " + LocalDateTime.now());
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<CourseReportApiResponseDto> apiResponse = restTemplate.getForEntity("http://localhost:8080/get-mock-api", CourseReportApiResponseDto.class);
+
+        LocalDate dateToday = LocalDate.now();
+        LocalDate dateDayBeforeYesterday = dateToday.minusDays(2);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        String startDateString = dateFormatter.format(dateToday);
+        String endDateString = dateFormatter.format(dateDayBeforeYesterday);
+
+        ResponseEntity<CourseReportApiResponseDto> apiResponse = restTemplate.getForEntity(
+                "http://localhost:8080/get-mock-api?page=1&per_page=1000&date_start=" +
+                        startDateString + "&date_end=" + endDateString, CourseReportApiResponseDto.class);
 
         CourseReportApiResponseDto responseData = apiResponse.getBody();
 
